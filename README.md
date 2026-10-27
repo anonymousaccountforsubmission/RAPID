@@ -6,7 +6,7 @@ RAPID is a mobile-first Houston air-quality screening platform. It combines curr
 
 1. `server/realtime_pipeline.py` requests the latest observation from NOAA station KHOU and converts it into the boundary-layer inputs used by the dispersion model.
 2. `pinn/houston_pinn_stack_v1_sens_best.pth` is loaded by `server/model.py`. Each facility/receptor pair is evaluated with the current wind field.
-3. `server/model_server.py` exposes the predictions and simulation API and serves the mobile web application from the same origin.
+3. `server/model_server.py` exposes the predictions and simulation API and serves the mobile application from the same origin.
 4. The browser refreshes realtime predictions every five minutes. Simulation controls send the selected source, receptor, reduction, and current meteorology back through the PINN.
 5. Ask RAPID sends a compact, grounded scenario to Gemini when `GEMINI_API_KEY` is configured. A deterministic scientific response engine remains available offline.
 

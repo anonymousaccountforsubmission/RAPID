@@ -1,5 +1,5 @@
 {
-  "name": "RAPID — Houston Pollution & Dispersion Explorer",
+  "name": "RAPID: Houston Pollution & Dispersion Explorer",
   "short_name": "RAPID",
   "description": "Mobile air-quality screening and atmospheric dispersion explorer for Greater Houston.",
   "start_url": "./index.html",
