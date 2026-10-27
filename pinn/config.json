@@ -1,0 +1,69 @@
+{
+  "model_type": "StackADEPINN",
+  "architecture": {
+    "hidden_dim": 256,
+    "num_layers": 8,
+    "activation": "GELU",
+    "output_activation": "Softplus",
+    "normalization": "LayerNorm"
+  },
+  "input_names": [
+    "x",
+    "y",
+    "z",
+    "cx",
+    "cy",
+    "h0",
+    "dh",
+    "u",
+    "v",
+    "Kh",
+    "Kz",
+    "Q"
+  ],
+  "norm_bounds": {
+    "r_max": [
+      0.0,
+      198500.03576825873
+    ],
+    "z_max": [
+      0.0,
+      500.0
+    ],
+    "dh_max": [
+      0.0,
+      400.0
+    ],
+    "h0": [
+      0.0,
+      167.64
+    ],
+    "u": [
+      -6.466443353446588,
+      11.307386264482792
+    ],
+    "v": [
+      -6.110874250395877,
+      7.958787653444874
+    ],
+    "Kh": [
+      0.1,
+      159.34968135620312
+    ],
+    "Kz": [
+      0.1,
+      537.1471557617188
+    ],
+    "logQ": [
+      0.0,
+      0.4821116162974378
+    ]
+  },
+  "metadata": {
+    "epoch": 138,
+    "probe_loss": 0.0024299281649291515,
+    "data_loss": 0.0027473911264678462,
+    "pde_loss": 0.12692273527383804,
+    "training_mode": "stack_v1_flux_mass_sens"
+  }
+}

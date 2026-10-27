@@ -1,0 +1,20 @@
+{
+  "name": "rapid-houston",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "RAPID: Physics-informed atmospheric dispersion explorer, AI investigator, and emissions simulator for Greater Houston and Harris County. Congressional App Challenge.",
+  "scripts": {
+    "dev": "python3 ../server/model_server.py",
+    "start": "python3 ../server/model_server.py",
+    "test": "node --test ../tests/frontend.test.mjs"
+  },
+  "keywords": [
+    "rapid",
+    "pinn",
+    "atmospheric-dispersion",
+    "houston",
+    "environmental-justice",
+    "congressional-app-challenge"
+  ],
+  "license": "MIT"
+}

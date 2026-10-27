@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>RAPID</title>
+
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="icon" href="assets/icon-192.png" type="image/png">
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="leaflet.css">
+
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+  <div class="app-shell" id="appShell">
+
+    <header class="app-top-header" role="banner">
+      <div class="header-brand-wrap">
+        <h1 class="brand-title">RAPID</h1>
+        <span id="liveDataSource" class="live-data-source" title="Connecting to the realtime pipeline">Connecting…</span>
+      </div>
+    </header>
+
+
+    <div class="search-bar-strip">
+      <div class="search-input-shell">
+        <svg class="search-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+            clip-rule="evenodd" />
+        </svg>
+        <input type="text" id="globalSearchInput" placeholder="Search..." autocomplete="off" spellcheck="false" />
+      </div>
+      <div id="searchResultsDropdown" class="search-dropdown-menu" style="display:none;"></div>
+    </div>
+
+
+    <main class="app-main-viewport">
+
+
+            <section id="tabExplore" class="app-tab-view active" role="tabpanel" aria-labelledby="navExplore">
+
+
+        <div class="map-container-wrap">
+          <div id="map" class="leaflet-map-canvas"></div>
+
+
+          <div class="minimal-legend-strip">
+            <span class="leg-ramp-bar"></span>
+          </div>
+
+
+          <button id="mapResetBtn" class="map-reset-btn" aria-label="Reset Map">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+              <path d="M3 3v5h5" />
+            </svg>
+          </button>
+        </div>
+
+
+        <article id="exploreBottomSheet" class="mobile-bottom-sheet" aria-label="Details">
+          <div class="sheet-drag-handle" id="sheetDragHandle">
+            <span class="drag-bar"></span>
+          </div>
+
+          <div class="sheet-content-scroll">
+            <div class="sheet-header-clean">
+              <h2 id="sheetTractName" class="sheet-title">Manchester</h2>
+            </div>
+
+
+            <div class="clean-concentration-box">
+              <div class="chart-header-row">
+                <div class="metric-block">
+                  <span id="heroPollutantVal" class="hero-val">2.59</span>
+                  <span class="hero-unit" id="heroPollutantUnit">µg/m³</span>
+                </div>
+                <div class="custom-dropdown-container" id="pollutantDropdownWrap">
+                  <button type="button" id="pollutantDropdownTrigger" class="custom-dropdown-trigger"
+                    aria-haspopup="listbox" aria-expanded="false">
+                    <span id="selectedPollutantLabel">Benzene</span>
+                    <svg class="custom-dropdown-chevron" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                  <div id="pollutantDropdownMenu" class="custom-dropdown-menu" role="listbox" style="display: none;">
+                    <button type="button" class="custom-dropdown-item active" data-value="BENZENE" role="option"
+                      aria-selected="true">
+                      <span>Benzene</span>
+                      <svg class="item-check" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                    <button type="button" class="custom-dropdown-item" data-value="PM25" role="option"
+                      aria-selected="false">
+                      <span>PM2.5</span>
+                      <svg class="item-check" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                    <button type="button" class="custom-dropdown-item" data-value="OZONE" role="option"
+                      aria-selected="false">
+                      <span>Ozone</span>
+                      <svg class="item-check" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                    <button type="button" class="custom-dropdown-item" data-value="DIESEL" role="option"
+                      aria-selected="false">
+                      <span>Diesel PM</span>
+                      <svg class="item-check" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="time-series-wrap">
+                <svg id="concentrationSparkline" class="time-series-svg" viewBox="0 0 320 135"
+                  preserveAspectRatio="none">
+
+                  <line x1="20" y1="20" x2="316" y2="20" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" />
+                  <line x1="20" y1="50" x2="316" y2="50" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" />
+                  <line x1="20" y1="80" x2="316" y2="80" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" />
+
+                  <line x1="22" y1="20" x2="22" y2="110" stroke="#f1f5f9" stroke-width="1" />
+                  <line x1="102" y1="20" x2="102" y2="110" stroke="#f1f5f9" stroke-width="1" />
+                  <line x1="182" y1="20" x2="182" y2="110" stroke="#f1f5f9" stroke-width="1" />
+                  <line x1="262" y1="20" x2="262" y2="110" stroke="#f1f5f9" stroke-width="1" />
+                  <line x1="314" y1="20" x2="314" y2="110" stroke="#f1f5f9" stroke-width="1" />
+
+
+                  <line x1="20" y1="20" x2="20" y2="110" stroke="#0f172a" stroke-width="1.2" />
+                  <line x1="20" y1="110" x2="316" y2="110" stroke="#0f172a" stroke-width="1.2" />
+
+
+                  <line x1="17" y1="20" x2="20" y2="20" stroke="#0f172a" stroke-width="1" />
+                  <text id="yTick3" x="15" y="23" font-size="8.5" fill="#64748b" text-anchor="end"
+                    class="axis-label">3.0</text>
+
+                  <line x1="17" y1="50" x2="20" y2="50" stroke="#0f172a" stroke-width="1" />
+                  <text id="yTick2" x="15" y="53" font-size="8.5" fill="#64748b" text-anchor="end"
+                    class="axis-label">2.0</text>
+
+                  <line x1="17" y1="80" x2="20" y2="80" stroke="#0f172a" stroke-width="1" />
+                  <text id="yTick1" x="15" y="83" font-size="8.5" fill="#64748b" text-anchor="end"
+                    class="axis-label">1.0</text>
+
+                  <line x1="17" y1="110" x2="20" y2="110" stroke="#0f172a" stroke-width="1" />
+                  <text id="yTick0" x="15" y="113" font-size="8.5" fill="#64748b" text-anchor="end"
+                    class="axis-label">0.0</text>
+
+                  <text id="graphYAxisUnit" x="20" y="11" font-size="8.5" fill="#64748b" class="axis-label">µg/m³</text>
+
+
+                  <line x1="22" y1="110" x2="22" y2="114" stroke="#0f172a" stroke-width="1" />
+                  <text x="28" y="125" font-size="8.5" fill="#64748b" text-anchor="middle" class="axis-label">Jan</text>
+
+                  <line x1="102" y1="110" x2="102" y2="114" stroke="#0f172a" stroke-width="1" />
+                  <text x="102" y="125" font-size="8.5" fill="#64748b" text-anchor="middle"
+                    class="axis-label">Apr</text>
+
+                  <line x1="182" y1="110" x2="182" y2="114" stroke="#0f172a" stroke-width="1" />
+                  <text x="182" y="125" font-size="8.5" fill="#64748b" text-anchor="middle"
+                    class="axis-label">Jul</text>
+
+                  <line x1="262" y1="110" x2="262" y2="114" stroke="#0f172a" stroke-width="1" />
+                  <text x="262" y="125" font-size="8.5" fill="#64748b" text-anchor="middle"
+                    class="axis-label">Oct</text>
+
+                  <line x1="314" y1="110" x2="314" y2="114" stroke="#0f172a" stroke-width="1" />
+                  <text x="308" y="125" font-size="8.5" fill="#64748b" text-anchor="middle"
+                    class="axis-label">Dec</text>
+
+
+                  <path id="sparklineLine" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M 22 19.9 C 26.4 20.4, 39.7 21.6, 48.5 23 C 57.3 24.4, 66.2 26.3, 75 28.4 C 83.8 30.5, 92.7 33.2, 101.5 35.4 C 110.3 37.6, 119.2 39.9, 128 41.6 C 136.8 43.3, 145.7 44.6, 154.5 45.5 C 163.3 46.4, 172.2 47.5, 181 47.1 C 189.8 46.7, 198.7 44.9, 207.5 43.2 C 216.3 41.5, 225.2 39.1, 234 37 C 242.8 34.9, 251.7 32.8, 260.5 30.7 C 269.3 28.6, 278.2 26.6, 287 24.5 C 295.8 22.4, 309.1 19.3, 313.5 18.3" />
+                  <circle id="sparklineDot" cx="313.5" cy="18.3" r="3.5" fill="#0284c7" stroke="#ffffff"
+                    stroke-width="1.5" />
+                </svg>
+              </div>
+            </div>
+
+
+            <div class="sheet-action-row">
+              <button id="actionAskAiBtn" class="sheet-btn primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                  </path>
+                </svg>
+                <span>Ask AI</span>
+              </button>
+              <button id="actionSimulateBtn" class="sheet-btn secondary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="4" y1="21" x2="4" y2="14"></line>
+                  <line x1="4" y1="10" x2="4" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12" y2="3"></line>
+                  <line x1="20" y1="21" x2="20" y2="16"></line>
+                  <line x1="20" y1="12" x2="20" y2="3"></line>
+                </svg>
+                <span>Simulate</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </section>
+
+
+            <section id="tabAsk" class="app-tab-view" role="tabpanel" aria-labelledby="navAsk">
+
+
+        <div class="ask-context-bar" style="justify-content: space-between;">
+          <span id="askCurrentLocation">Manchester</span>
+          <span id="apiKeyBtn" class="api-key-btn" aria-label="AI engine status">
+            <span id="apiKeyBtnDot" style="width: 7px; height: 7px; border-radius: 50%; background: #94a3b8; display: inline-block;"></span>
+            <span id="apiKeyBtnText">Checking AI</span>
+          </span>
+        </div>
+
+
+        <div class="clean-chips-bar" aria-label="Quick questions">
+          <button class="clean-chip" data-prompt="What are the closest facilities to me?">
+            What are the closest facilities to me?
+          </button>
+          <button class="clean-chip" data-prompt="Explain the types of pollutants">
+            Explain the types of pollutants
+          </button>
+          <button class="clean-chip" data-prompt="What is environmental justice?">
+            What is environmental justice?
+          </button>
+        </div>
+
+
+        <div class="chat-thread" id="chatThread" role="log" aria-live="polite">
+          <div class="chat-msg assistant">
+            <div class="msg-bubble">
+              <p>I can help answer questions about air quality, environmental justice, and pollution sources in your
+                community.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <form class="chat-input-bar" id="chatForm">
+          <input type="text" id="chatInput" placeholder="Ask question..." autocomplete="off" />
+          <button type="submit" id="chatSendBtn" class="chat-send-btn" aria-label="Send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+
+      </section>
+
+
+            <section id="tabSimulate" class="app-tab-view" role="tabpanel" aria-labelledby="navSimulate">
+
+        <div class="simulate-container">
+          <div class="sim-card">
+
+
+            <div class="sim-model-bar">
+              <span id="simModelBadge" class="sim-model-badge">Physics Engine</span>
+            </div>
+
+
+            <div class="in-ui-selector-wrap">
+              <div class="inline-chips-scroll" id="simFacilityChips" role="radiogroup" aria-label="Facility">
+                <button type="button" class="in-ui-chip active" data-val="fac-valero">Valero</button>
+                <button type="button" class="in-ui-chip" data-val="fac-4762811">Houston Refining</button>
+                <button type="button" class="in-ui-chip" data-val="fac-4924411">Baytown</button>
+                <button type="button" class="in-ui-chip" data-val="fac-4058611">Deer Park</button>
+                <button type="button" class="in-ui-chip" data-val="fac-4941411">Channelview</button>
+                <button type="button" class="in-ui-chip" data-val="fac-3737711">Galena Park</button>
+                <button type="button" class="in-ui-chip" data-val="fac-6421511">Pasadena</button>
+                <button type="button" class="in-ui-chip" data-val="fac-4835311">Galveston Bay</button>
+                <button type="button" class="in-ui-chip" data-val="fac-3930711">Texas City</button>
+                <button type="button" class="in-ui-chip" data-val="fac-5632711">Dow Freeport</button>
+              </div>
+            </div>
+
+
+            <div class="in-ui-selector-wrap">
+              <div class="inline-chips-scroll" id="simReceptorChips" role="radiogroup" aria-label="Community">
+                <button type="button" class="in-ui-chip active" data-val="tract-manchester">Manchester</button>
+                <button type="button" class="in-ui-chip" data-val="tract-fifth-ward">Fifth Ward</button>
+                <button type="button" class="in-ui-chip" data-val="tract-kashmere">Kashmere</button>
+                <button type="button" class="in-ui-chip" data-val="tract-magnolia-park">Magnolia</button>
+                <button type="button" class="in-ui-chip" data-val="tract-pasadena">Pasadena</button>
+                <button type="button" class="in-ui-chip" data-val="tract-galena-park">Galena Park</button>
+                <button type="button" class="in-ui-chip" data-val="tract-sunnyside">Sunnyside</button>
+                <button type="button" class="in-ui-chip" data-val="tract-baytown">Baytown</button>
+                <button type="button" class="in-ui-chip" data-val="tract-heights">Heights</button>
+                <button type="button" class="in-ui-chip" data-val="tract-river-oaks">River Oaks</button>
+              </div>
+            </div>
+
+
+            <div class="slider-control-group">
+              <div class="slider-badge-wrap">
+                <strong id="simReductionDisplay" class="slider-number-val">-50%</strong>
+              </div>
+              <input type="range" id="simReductionSlider" min="0" max="100" step="5" value="50"
+                class="sim-styled-slider" />
+            </div>
+
+
+            <div class="clean-exposure-grid">
+              <span class="exp-num" id="simBaselineVal">2.59</span>
+              <div class="clean-exp-arrow">
+                <strong id="simDeltaPctBadge" class="exp-badge">-36%</strong>
+              </div>
+              <span class="exp-num" id="simProjectedVal">1.66</span>
+            </div>
+
+
+            <div class="sim-actions-clean">
+              <button id="simViewOnMapBtn" class="sim-btn primary">
+                <span>View on Map</span>
+              </button>
+              <button id="simAskAiBtn" class="sim-btn secondary">
+                <span>Ask AI</span>
+              </button>
+              <button id="simResetBtn" class="sim-btn secondary">
+                <span>Reset</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <nav class="app-bottom-nav" id="bottomNav" role="navigation" aria-label="Navigation">
+      <button class="nav-tab-btn active" id="navExplore" data-tab="tabExplore" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+        </svg>
+        <span>Explore</span>
+      </button>
+
+      <button class="nav-tab-btn" id="navAsk" data-tab="tabAsk" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+          </path>
+        </svg>
+        <span>Ask RAPID</span>
+      </button>
+
+      <button class="nav-tab-btn" id="navSimulate" data-tab="tabSimulate" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="4" y1="21" x2="4" y2="14"></line>
+          <line x1="4" y1="10" x2="4" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12" y2="3"></line>
+          <line x1="20" y1="21" x2="20" y2="16"></line>
+          <line x1="20" y1="12" x2="20" y2="3"></line>
+        </svg>
+        <span>Simulate</span>
+      </button>
+    </nav>
+
+
+    <div id="appToast" class="app-toast" role="status" aria-live="polite"></div>
+
+  </div>
+
+
+  <script src="leaflet.js"></script>
+
+
+  <script type="module" src="app.js"></script>
+
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => { });
+      });
+    }
+  </script>
+</body>
+
+</html>
