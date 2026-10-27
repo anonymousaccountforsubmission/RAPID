@@ -2,6 +2,8 @@ import os
 import sys
 import math
 
+os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
+
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 if not os.path.isdir(os.path.join(ROOT_DIR, "pinn")):
     ROOT_DIR = os.path.dirname(ROOT_DIR)

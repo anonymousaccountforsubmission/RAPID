@@ -1,4 +1,5 @@
 import os
+os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
 import torch
 import numpy as np
 try:

@@ -3,6 +3,8 @@ import sys
 import unittest
 from unittest import mock
 
+os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
+
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SERVER = os.path.join(ROOT, "server")
